@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nazario | ttt4</title>
+</head>
+<body>
+    <style>
+        body {
+            background-color: antiquewhite;
+        }
+
+        .tictactoe__board {
+            display: grid;
+            justify-content: center;
+            grid-template-columns: repeat(3, 100px);
+            grid-template-rows: repeat(3, 100px);
+            margin: 20px 0;
+        }
+
+        .square {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 3.5rem;
+            border: 1px solid black;
+            margin: 5px;
+            /* width: 100px;
+            height: 100px; */
+
+        }
+
+        .square:hover {
+            background-color: pink;
+        }
+
+        #player__turn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid black;
+        }
+
+        #player__turn h2 {
+            font-size: 1.25rem;
+            font-weight: 500;
+            color: black;
+        }
+
+        .clear {
+            display: flex;
+            align-self: center;
+            justify-content: center;
+            background-color: transparent;
+            border: 0;
+        }
+
+        .game__btn {
+            margin: 20px 0;
+            padding: 10px 10px;
+            border-radius: 5px;
+            background-color: white;
+        }
+
+        .game__btn:hover {
+            background-color: pink;
+            transition: 0.3s ease;
+        }
+
+    </style>
+
+    <div class="title">
+        <h1 style="justify-content: center; font-weight: 300; display: flex; align-items: center; background-color: lightpink;">
+            Let's Play Tic Tac Toe
+        </h1>
+    </div>
+
+    <div id="player__turn">
+
+    </div>
+
+    <div class="tictactoe__board">
+        <script language="javascript">
+            const NUM_SQUARES = 9;
+            const moves = [];
+            const winConditions = [];
+
+            for (i = 0; i < NUM_SQUARES; i++) {
+    
+                id = "sq" + i;
+                document.write( "<div class='square' id='" + id + "'></div>" );
+            }
+
+            var current__player = Math.random() < 0.5 ? "X" : "O";
+            var turn = document.getElementById("player__turn");
+            turn.innerHTML = `<h2>Player ${current__player}'s turn</h2>`;
+            let board = Array.from(document.getElementsByClassName('square'));
+
+            for (let i = 0; i < NUM_SQUARES; i++) {
+                let square = document.getElementById("sq" + i);
+
+                square.addEventListener("click", function() {
+                    // condition to not allow input to non-white space
+                    if (square.innerText === "") {
+                        square.innerHTML = current__player;
+                        alert ("Square clicked: " + i);
+
+                        if (current__player === "X") {
+                            current__player = "O";
+                            turn.innerHTML = `<h2> Player ${current__player}'s turn</h2>`;
+                        } else {
+                            current__player = "X";
+                            turn.innerHTML = `<h2>Player ${current__player}'s turn</h2>`;
+                        }
+                    }
+                });
+
+                square.addEventListener("click", moves_function);
+                square.addEventListener("click", populate_wins);
+            }
+
+            // utilizes the forEach function 
+            function moves_function() {
+                board.forEach(function myFunction(item, index, arr) {
+                    let board_index = document.getElementById("sq" + index);
+                    if (board_index.innerHTML === "") {
+                        moves[index] = "-";
+                    } else {
+                        moves[index] = board_index.innerHTML;
+                    }
+                });
+            }
+            
+            // is winner
+            function isWinner() {
+                
+                for (let i = 0; i < NUM_SQUARES; i++) {
+                    if (winConditions[i] == "XXX") {
+                        turn.innerHTML = `Player X wins!`;
+                    } else if (winConditions[i] == "OOO") {
+                        turn.innerHTML = `Player O wins!`;
+                    } else {
+                        isStalemate();
+                    }
+                }
+            }
+
+            // win result is a tie
+            function isStalemate() {
+                for (let i = 0; i < NUM_SQUARES; i++) {
+                    if (moves[i] == "-") {
+                        return;
+                    }
+                }
+
+                turn.innerHTML = "All squares are full. No Winner.";
+            }
+
+            // winConditions
+            function populate_wins () {
+                winConditions[0] = moves[0]+moves[1]+moves[2];
+                winConditions[1] = moves[3]+moves[4]+moves[5];
+                winConditions[2] = moves[6]+moves[7]+moves[8];
+                winConditions[3] = moves[0]+moves[3]+moves[6];
+                winConditions[4] = moves[1]+moves[4]+moves[7];
+                winConditions[5] = moves[2]+moves[5]+moves[8];
+                winConditions[6] = moves[0]+moves[4]+moves[8];
+                winConditions[7] = moves[2]+moves[4]+moves[6];
+
+                isWinner();
+            }
+
+
+        </script>
+    </div>
+
+    <!-- Clears the board not the array -->
+    <div class="clear">
+        <button class="game__btn" id="game__btn">Start Game</button>
+        <script>
+            document.getElementById("game__btn").addEventListener ("click", function() {
+                for (let i = 0; i < NUM_SQUARES; i++) {
+                    let square = document.getElementById("sq"+i);
+                    square.innerHTML = "";
+                    turn.innerHTML = `<h2> Player ${current__player}'s turn</h2>`;
+                }
+            });
+        </script>
+    </div>
+</body>
+</html>

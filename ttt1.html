@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nazario | ttt1</title>
+</head>
+<body>
+    <div class="tictactoe__board">
+        <div class="square" style="margin: 5px;"> X </div>
+        <div class="square" style="margin: 5px;"></div>
+        <div class="square" style="margin: 5px;"></div>
+        <div class="square" style="margin: 5px;"></div>
+        <div class="square" style="margin: 5px;"> O </div>
+        <div class="square" style="margin: 5px;"></div>
+        <div class="square" style="margin: 5px;"></div>
+        <div class="square" style="margin: 5px;"></div>
+        <div class="square" style="margin: 5px;"></div>
+    </div>
+    <style>
+        .tictactoe__board {
+            display: grid;
+            /* This is so cool this sets the size of the columns/rows and size */
+            grid-template-columns: repeat(3, 100px);
+            grid-template-rows: repeat(3, 100px);
+            border: 1px solid black;
+            justify-content: center;
+        }
+
+        .square {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 3.5rem;
+            border: 1px solid black;
+        }
+
+        .square:hover {
+            background-color: pink;
+        }
+
+    </style>
+</body>
+</html>

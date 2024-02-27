@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nazario | ttt3</title>
+</head>
+<body>
+    <style>
+        body {
+            background-color: antiquewhite;
+        }
+
+        .tictactoe__board {
+            display: grid;
+            justify-content: center;
+            grid-template-columns: repeat(3, 100px);
+            grid-template-rows: repeat(3, 100px);
+            margin: 20px 0;
+        }
+
+        .square {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 3.5rem;
+            border: 1px solid black;
+            margin: 5px;
+
+        }
+
+        .square:hover {
+            background-color: pink;
+        }
+
+        #player__turn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid black;
+        }
+
+        #player__turn h2 {
+            font-size: 1.25rem;
+            font-weight: 500;
+            color: black;
+        }
+
+        .winner {
+            position: absolute;
+            top: 25%;
+            width: 50%;
+            left: 0;
+            right: 0;
+            margin: auto;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border: 2px solid black;
+            background-color: lightpink;
+        }
+
+        .clear {
+            display: flex;
+            align-self: center;
+            justify-content: center;
+            background-color: transparent;
+            border: 0;
+        }
+
+        .game__btn {
+            margin: 20px 0;
+            padding: 10px 10px;
+            border-radius: 5px;
+            background-color: white;
+        }
+
+        .game__btn:hover {
+            background-color: pink;
+            transition: 0.3s ease;
+        }
+
+    </style>
+
+    <div class="title">
+        <h1 style="justify-content: center; font-weight: 300; display: flex; align-items: center; background-color: lightpink;">
+            Let's Play Tic Tac Toe
+        </h1>
+    </div>
+
+    <div id="player__turn">
+
+    </div>
+
+    <!-- <div class="winner">
+        <h3>&nbsp; WIN CONDITION</h3>
+    </div> -->
+
+    <div class="tictactoe__board">
+        <script language="javascript">
+            const NUM_SQUARES = 9;
+
+            for (i = 0; i < NUM_SQUARES; i++) {
+    
+                id = "sq" + i;
+                document.write( "<div class='square' id='" + id + "'></div>" );
+            }
+
+            // ternary operator. I absolutely love it.
+            var current__player = Math.random() < 0.5 ? "X" : "O";
+            var turn = document.getElementById("player__turn");
+            turn.innerHTML = `<h2>Player ${current__player}'s turn</h2>`;
+
+            for (i = 0; i < NUM_SQUARES; i++) {
+
+                let square = document.getElementById("sq" + i);
+                let square_num = i;
+
+                square.addEventListener("click", function() {
+
+                    if (square.textContent === "") {
+                        alert ("Square clicked: " + square_num);
+                        square.textContent = current__player;
+
+                        if (current__player === "X") {
+                            current__player = "O";
+                            turn.innerHTML = `<h2> Player ${current__player}'s turn</h2>`;
+                        } else {
+                            current__player = "X";
+                            turn.innerHTML = `<h2>Player ${current__player}'s turn</h2>`;
+                        }
+                    }
+                });
+            }
+
+        </script>
+    </div>
+
+    <div class="clear">
+        <button class="game__btn" id="game__btn">Start Game</button>
+        <script>
+            document.getElementById("game__btn").addEventListener ("click", function() {
+                for (i = 0; i < NUM_SQUARES; i++) {
+                    let square = document.getElementById("sq"+i);
+                    square.textContent = "";
+                }
+            });
+        </script>
+    </div>
+</body>
+</html>
